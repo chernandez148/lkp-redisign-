@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Left Koast — Elevated sound, direct from the Koast.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============ TOKENS ============ */
+        :root {
+            --bg: #121009;
+            --bg-1: #17150e;
+            --bg-2: #1c1a13;
+            --sidebar: #0b0a06;
+            --ink: #f4efe2;
+            --ink-dim: #a39a86;
+            --ink-faint: #6b6455;
+            --line: rgba(244, 239, 226, 0.09);
+            --line-strong: rgba(244, 239, 226, 0.16);
+            --accent: #d7a44e;
+            --accent-soft: rgba(215, 164, 78, 0.14);
+            --accent-ink: #171207;
+
+            --g-music-1: #8b3ff0;
+            --g-music-2: #ef5da8;
+            --g-ebooks-1: #e9dab3;
+            --g-ebooks-2: #b98a45;
+            --g-audio-1: #12b4b0;
+            --g-audio-2: #1a5f9e;
+            --g-art-1: #ff7a5c;
+            --g-art-2: #ffc179;
+            --g-merch-1: #b24bf3;
+            --g-merch-2: #e01a7f;
+            --g-bundles-1: #3ddc78;
+            --g-bundles-2: #0d7a49;
+
+            --serif: "Fraunces", ui-serif, Georgia, serif;
+            --sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+            --mono: "JetBrains Mono", ui-monospace, monospace;
+
+            --radius: 3px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* grain texture — sits over everything, very low opacity */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+        }
+
+        .mono {
+            font-family: var(--mono);
+        }
+
+        /* ============ LAYOUT SHELL ============ */
+        .shell {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ============ SIDEBAR ============ */
+        .sidebar {
+            background: var(--sidebar);
+            border-right: 1px solid var(--line);
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 44px;
+        }
+
+        .brand .brand-name {
+            margin-right: auto;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--line-strong);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+        }
+
+        .brand-name {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.12em;
+        }
+
+        .nav-group {
+            margin-bottom: 28px;
+        }
+
+        .nav-label {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: 0.16em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+            padding: 0 10px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 9px 10px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            letter-spacing: 0.03em;
+            color: var(--ink-dim);
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav-item svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 1.6;
+            flex-shrink: 0;
+        }
+
+        .nav-item:hover {
+            color: var(--ink);
+            background: rgba(244, 239, 226, 0.03);
+        }
+
+        .nav-item.active {
+            color: var(--ink);
+            background: linear-gradient(90deg, rgba(215, 164, 78, 0.13), rgba(215, 164, 78, 0.02));
+            border-left: 2px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .sidebar-foot {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+        }
+
+        .sidebar-foot .est {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--ink-faint);
+            line-height: 1.6;
+        }
+
+        .sidebar-close,
+        .menu-toggle {
+            display: none;
+        }
+
+        /* ---- mobile nav overlay ---- */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 5, 3, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 150;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ============ MAIN ============ */
+        .main {
+            min-width: 0;
+        }
+
+        /* ---- topbar ---- */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 40px;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            background: rgba(18, 16, 9, 0.86);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+        }
+
+        .search {
+            flex: 1;
+            max-width: 420px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            color: var(--ink-faint);
+            font-size: 13px;
+        }
+
+        .search svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 1.6;
+        }
+
+        .topbar-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            font-family: var(--mono);
+            font-size: 11.5px;
+            letter-spacing: 0.06em;
+            color: var(--ink-dim);
+        }
+
+        .topbar-right .link {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .topbar-right svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 1.6;
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: var(--accent-ink);
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        /* ---- section wrapper ---- */
+        section {
+            padding: 64px 40px;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+
+        .section-sub {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+        }
+
+        .view-all {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--ink-dim);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            padding-bottom: 2px;
+            transition: color 0.15s ease, gap 0.15s ease;
+        }
+
+        .view-all svg {
+            width: 12px;
+            height: 12px;
+            stroke-width: 2;
+        }
+
+        .view-all:hover {
+            color: var(--accent);
+            gap: 8px;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            padding: 0 40px 70px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hero-inner {
+            padding-top: 64px;
+            position: relative;
+            z-index: 2;
+            max-width: 640px;
+        }
+
+        .hero .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .hero .eyebrow .rule {
+            width: 26px;
+            height: 1px;
+            background: var(--ink-faint);
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(40px, 5.2vw, 66px);
+            line-height: 1.02;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(90deg, #f4efe2, var(--accent) 120%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p.desc {
+            margin-top: 22px;
+            color: var(--ink-dim);
+            font-size: 15px;
+            line-height: 1.65;
+            max-width: 420px;
+        }
+
+        .hero-actions {
+            margin-top: 34px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ink);
+            color: var(--accent-ink);
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 12.5px;
+            letter-spacing: 0.06em;
+            padding: 14px 22px;
+            border-radius: 30px;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+
+        .btn-primary svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 2;
+            transition: transform 0.18s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(3px);
+        }
+
+        .hero-note {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: var(--ink-faint);
+        }
+
+        .hero-note .dot {
+            color: var(--accent);
+        }
+
+        /* hero backdrop: gradient mesh + waveform + oversized wordmark */
+        .hero-backdrop {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-mesh {
+            position: absolute;
+            top: -160px;
+            right: -160px;
+            width: 640px;
+            height: 640px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 35% 30%, rgba(139, 63, 240, 0.20), transparent 55%),
+                radial-gradient(circle at 65% 65%, rgba(215, 164, 78, 0.16), transparent 60%);
+            filter: blur(10px);
+        }
+
+        .hero-wordmark {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: 340px;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(244, 239, 226, 0.06);
+            letter-spacing: -0.04em;
+            user-select: none;
+        }
+
+        .hero-wave {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 120px;
+            opacity: 0.55;
+        }
+
+        /* ============ CATEGORY CARDS ============ */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+
+        .cat-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 22px 18px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .cat-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--cat-grad);
+            opacity: 0.13;
+            transition: opacity 0.25s ease;
+        }
+
+        .cat-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 85% 15%, var(--cat-c1), transparent 60%);
+            opacity: 0.35;
+            mix-blend-mode: screen;
+        }
+
+        .cat-card:hover {
+            border-color: var(--line-strong);
+            transform: translateY(-2px);
+        }
+
+        .cat-card:hover::before {
+            opacity: 0.22;
+        }
+
+        .cat-icon {
+            position: relative;
+            z-index: 2;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--line-strong);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(18, 16, 9, 0.4);
+        }
+
+        .cat-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 1.5;
+        }
+
+        .cat-meta {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cat-meta .name {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 14.5px;
+            margin-bottom: 3px;
+        }
+
+        .cat-meta .count {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--ink-faint);
+        }
+
+        .cat-music {
+            --cat-grad: linear-gradient(135deg, var(--g-music-1), var(--g-music-2));
+            --cat-c1: var(--g-music-2);
+        }
+
+        .cat-ebooks {
+            --cat-grad: linear-gradient(135deg, var(--g-ebooks-1), var(--g-ebooks-2));
+            --cat-c1: var(--g-ebooks-1);
+        }
+
+        .cat-audio {
+            --cat-grad: linear-gradient(135deg, var(--g-audio-1), var(--g-audio-2));
+            --cat-c1: var(--g-audio-1);
+        }
+
+        .cat-art {
+            --cat-grad: linear-gradient(135deg, var(--g-art-1), var(--g-art-2));
+            --cat-c1: var(--g-art-2);
+        }
+
+        .cat-merch {
+            --cat-grad: linear-gradient(135deg, var(--g-merch-1), var(--g-merch-2));
+            --cat-c1: var(--g-merch-2);
+        }
+
+        .cat-bundles {
+            --cat-grad: linear-gradient(135deg, var(--g-bundles-1), var(--g-bundles-2));
+            --cat-c1: var(--g-bundles-1);
+        }
+
+        /* ============ RELEASE CARDS ============ */
+        .release-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+
+        .release-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .release-cover {
+            position: relative;
+            aspect-ratio: 1/1.05;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: var(--cover-grad);
+        }
+
+        .release-cover::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.10;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: 0.08em;
+            padding: 4px 8px;
+            border-radius: 3px;
+            background: rgba(18, 16, 9, 0.55);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(244, 239, 226, 0.18);
+            color: var(--ink);
+        }
+
+        .play-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(18, 16, 9, 0.55);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(244, 239, 226, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease, transform 0.15s ease;
+        }
+
+        .play-btn svg {
+            width: 12px;
+            height: 12px;
+            stroke-width: 2;
+            fill: var(--ink);
+        }
+
+        .play-btn:hover {
+            background: var(--accent);
+            transform: scale(1.06);
+        }
+
+        .cover-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 2;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(244, 239, 226, 0.75);
+        }
+
+        .release-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .release-artist {
+            font-size: 12px;
+            color: var(--ink-dim);
+            margin-bottom: 8px;
+        }
+
+        .release-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .release-tag {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+        }
+
+        .release-price {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--accent);
+        }
+
+        .cv-music {
+            --cover-grad: linear-gradient(160deg, var(--g-music-2), #c24a2f 60%, #d97a1f);
+        }
+
+        .cv-ebooks {
+            --cover-grad: linear-gradient(180deg, var(--g-ebooks-1), var(--g-ebooks-2));
+        }
+
+        .cv-audio {
+            --cover-grad: linear-gradient(160deg, var(--g-audio-1), var(--g-audio-2));
+        }
+
+        .cv-art {
+            --cover-grad: linear-gradient(150deg, #2a241a, #14120c 70%);
+        }
+
+        .cv-merch {
+            --cover-grad: linear-gradient(160deg, var(--g-merch-1), var(--g-merch-2));
+        }
+
+        .cv-bundles {
+            --cover-grad: linear-gradient(165deg, var(--g-bundles-1), var(--g-bundles-2));
+        }
+
+        /* ============ EVENT CARDS ============ */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .event-card {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+            transition: border-color 0.2s ease;
+        }
+
+        .event-card:hover {
+            border-color: var(--line-strong);
+        }
+
+        .event-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .event-icon {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--line-strong);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .event-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 1.5;
+            color: var(--accent);
+        }
+
+        .event-top .name {
+            font-weight: 600;
+            font-size: 13.5px;
+        }
+
+        .event-top .kind {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: 0.08em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+        }
+
+        .event-price {
+            font-family: var(--serif);
+            font-size: 26px;
+        }
+
+        .event-reserve {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: 0.08em;
+            color: var(--ink-dim);
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+
+        .event-reserve svg {
+            width: 12px;
+            height: 12px;
+            stroke-width: 2;
+        }
+
+        /* ============ COLLECTIONS ============ */
+        .coll-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+
+        .coll-card {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 1/1.05;
+            padding: 16px;
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid var(--line);
+            background: var(--coll-grad);
+        }
+
+        .coll-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(11, 10, 6, 0.75), rgba(11, 10, 6, 0.1) 55%);
+        }
+
+        .coll-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.08;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        .coll-meta {
+            position: relative;
+            z-index: 2;
+        }
+
+        .coll-meta .name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .coll-meta .sub {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: rgba(244, 239, 226, 0.6);
+        }
+
+        .coll-1 {
+            --coll-grad: linear-gradient(160deg, #1c3b33, #0b0a06 70%);
+        }
+
+        .coll-2 {
+            --coll-grad: linear-gradient(160deg, #2a2410, #0b0a06 70%);
+        }
+
+        .coll-3 {
+            --coll-grad: linear-gradient(160deg, #131c3b, #0b0a06 70%);
+        }
+
+        .coll-4 {
+            --coll-grad: linear-gradient(160deg, #3b1424, #0b0a06 70%);
+        }
+
+        .coll-5 {
+            --coll-grad: linear-gradient(160deg, #163326, #0b0a06 70%);
+        }
+
+        /* ============ TOP SELLING ============ */
+        .top-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-row {
+            display: grid;
+            grid-template-columns: 44px 46px 1fr auto;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 4px;
+            border-bottom: 1px solid var(--line);
+            transition: padding-left 0.15s ease;
+        }
+
+        .top-row:hover {
+            padding-left: 10px;
+        }
+
+        .top-row:last-child {
+            border-bottom: none;
+        }
+
+        .top-rank {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 19px;
+            color: var(--ink-faint);
+        }
+
+        .top-thumb {
+            width: 46px;
+            height: 46px;
+            border-radius: 4px;
+            background: var(--thumb-grad);
+        }
+
+        .top-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .top-sub {
+            font-size: 12px;
+            color: var(--ink-dim);
+        }
+
+        .top-price {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--accent);
+        }
+
+        .t1 {
+            --thumb-grad: linear-gradient(160deg, #8b3ff0, #ef5da8);
+        }
+
+        .t2 {
+            --thumb-grad: linear-gradient(160deg, #ff7a5c, #ffc179);
+        }
+
+        .t3 {
+            --thumb-grad: linear-gradient(160deg, #e9dab3, #b98a45);
+        }
+
+        .t4 {
+            --thumb-grad: linear-gradient(160deg, #12b4b0, #1a5f9e);
+        }
+
+        .t5 {
+            --thumb-grad: linear-gradient(160deg, #3ddc78, #0d7a49);
+        }
+
+        /* ============ CREATORS ============ */
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+
+        .creator-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 14px;
+        }
+
+        .creator-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 22px;
+            color: var(--ink-dim);
+            background: radial-gradient(circle at 30% 30%, rgba(215, 164, 78, 0.10), transparent 70%);
+        }
+
+        .creator-name {
+            font-weight: 600;
+            font-size: 13.5px;
+        }
+
+        .creator-role {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--ink-faint);
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        .btn-follow {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            border: 1px solid var(--line-strong);
+            border-radius: 20px;
+            padding: 7px 16px;
+            color: var(--ink-dim);
+            transition: all 0.15s ease;
+        }
+
+        .btn-follow:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ============ NEWSLETTER ============ */
+        .newsletter {
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            padding: 44px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(139, 63, 240, 0.10), transparent 55%),
+                radial-gradient(circle at 5% 90%, rgba(215, 164, 78, 0.09), transparent 55%);
+        }
+
+        .newsletter h3 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 25px;
+            line-height: 1.25;
+        }
+
+        .newsletter p {
+            margin-top: 10px;
+            color: var(--ink-dim);
+            font-size: 13.5px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .newsletter-form input {
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            border-radius: 24px;
+            padding: 12px 18px;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 13px;
+            width: 220px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--ink-faint);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            padding: 56px 40px 120px;
+            border-bottom: none;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 0;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            max-width: 280px;
+            font-size: 12.5px;
+            color: var(--ink-faint);
+            line-height: 1.7;
+        }
+
+        .footer-cols {
+            display: flex;
+            gap: 64px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 14px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 12.5px;
+            color: var(--ink-dim);
+            margin-bottom: 10px;
+            transition: color 0.15s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--ink);
+        }
+
+        /* ============ PLAYER BAR ============ */
+        .player {
+            position: fixed;
+            left: 220px;
+            right: 0;
+            bottom: 0;
+            height: 64px;
+            background: rgba(11, 10, 6, 0.92);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            gap: 24px;
+            z-index: 80;
+        }
+
+        .player-track {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 220px;
+        }
+
+        .player-thumb {
+            width: 38px;
+            height: 38px;
+            border-radius: 4px;
+            background: linear-gradient(160deg, #3a3527, #171207);
+            border: 1px solid var(--line);
+        }
+
+        .player-track .name {
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .player-track .sub {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--ink-faint);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin: 0 auto;
+        }
+
+        .player-controls svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 1.6;
+            color: var(--ink-dim);
+        }
+
+        .player-play {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-play svg {
+            width: 13px;
+            height: 13px;
+            fill: var(--accent-ink);
+            stroke: none;
+            color: var(--accent-ink);
+        }
+
+        .player-bars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .player-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .player-right svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 1.6;
+            color: var(--ink-dim);
+        }
+
+        .vol-track {
+            width: 64px;
+            height: 2px;
+            background: var(--line-strong);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .vol-track::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60%;
+            background: var(--ink-dim);
+            border-radius: 2px;
+        }
+
+        /* ============ WAVEFORM DIVIDER ============ */
+        .wave-divider {
+            padding: 0 40px;
+        }
+
+        .wave-divider svg {
+            width: 100%;
+            height: 20px;
+            opacity: 0.5;
+        }
+
+        /* ============ RESPONSIVE ============ */
+
+        /* ---- tablet ---- */
+        @media (max-width: 1200px) {
+            .shell {
+                grid-template-columns: 190px 1fr;
+            }
+
+            .cat-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .release-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .event-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .coll-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .creator-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero-wordmark {
+                display: none;
+            }
+
+            .player {
+                left: 190px;
+            }
+        }
+
+        /* ---- small tablet / large mobile: sidebar becomes an off-canvas drawer ---- */
+        @media (max-width: 900px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 260px;
+                max-width: 80vw;
+                transform: translateX(-100%);
+                transition: transform 0.28s ease;
+                z-index: 200;
+                box-shadow: 20px 0 60px rgba(0, 0, 0, 0.5);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-close {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 26px;
+                height: 26px;
+            }
+
+            .sidebar-close svg {
+                width: 15px;
+                height: 15px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 34px;
+                border: 1px solid var(--line);
+                border-radius: 7px;
+                flex-shrink: 0;
+            }
+
+            .menu-toggle svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .player {
+                left: 0;
+            }
+
+            .topbar {
+                padding: 16px 20px;
+                gap: 14px;
+            }
+
+            .topbar-right {
+                gap: 18px;
+            }
+
+            section {
+                padding: 48px 24px;
+            }
+
+            .hero {
+                padding: 0 24px 48px;
+            }
+
+            .hero-inner {
+                padding-top: 40px;
+                max-width: 100%;
+            }
+
+            footer {
+                padding: 48px 24px 130px;
+            }
+        }
+
+        /* ---- mobile ---- */
+        @media (max-width: 640px) {
+            .cat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .release-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coll-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .creator-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .topbar-right {
+                gap: 14px;
+            }
+
+            .topbar-right .link .label {
+                display: none;
+            }
+
+            .search {
+                max-width: none;
+                flex: 1;
+            }
+
+            .search-label {
+                display: none;
+            }
+
+            .search::after {
+                content: "Search";
+                color: var(--ink-faint);
+            }
+
+            .section-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .section-title {
+                font-size: 21px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .newsletter {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 32px 24px;
+            }
+
+            .newsletter-form {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .newsletter-form input {
+                width: auto;
+            }
+
+            .newsletter-form .btn-primary {
+                justify-content: center;
+                white-space: nowrap;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 36px;
+            }
+
+            .footer-cols {
+                gap: 36px;
+                flex-wrap: wrap;
+            }
+
+            .player {
+                padding: 0 16px;
+                gap: 14px;
+            }
+
+            .player-track {
+                width: auto;
+            }
+
+            .player-track .sub {
+                display: none;
+            }
+
+            .vol-track {
+                display: none;
+            }
+
+            .top-row {
+                grid-template-columns: 32px 40px 1fr auto;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="shell">
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ===================== SIDEBAR ===================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-mark">LK</div>
+                <div class="brand-name">LEFT&nbsp;KOAST</div>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 6l12 12M18 6 6 18" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <a class="nav-item active" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 11.5 12 4l9 7.5" />
+                        <path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9" />
+                    </svg> Studio</a>
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="m14.5 9.5-2 5-5 2 2-5 5-2z" />
+                    </svg> Discover</a>
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12 3v4M12 17v4M4.5 12h4M15.5 12h4M6.5 6.5l2.5 2.5M15 15l2.5 2.5M17.5 6.5 15 9M9 15l-2.5 2.5" />
+                    </svg> New releases</a>
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3.5" y="4.5" width="17" height="4" rx="1" />
+                        <path d="M5 8.5V18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5" />
+                        <path d="M10 12.5h4" />
+                    </svg> Archive</a>
+            </div>
+
+            <div class="nav-group">
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9.5" cy="19.5" r="1.2" />
+                        <circle cx="17.5" cy="19.5" r="1.2" />
+                        <path d="M3 4h2l2.2 11.2a1.5 1.5 0 0 0 1.5 1.3h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6" />
+                    </svg> Cart</a>
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z" />
+                        <path d="M4 7l8 4 8-4M12 11v10" />
+                    </svg> Orders</a>
+                <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="3.5" />
+                        <path d="M5 20c1-4 4-6 7-6s6 2 7 6" />
+                    </svg> Account</a>
+            </div>
+
+            <div class="sidebar-foot">
+                <div class="est mono">Est.<br>2026 // Chino Hills</div>
+            </div>
+        </aside>
+
+        <!-- ===================== MAIN ===================== -->
+        <div class="main">
+
+            <!-- topbar -->
+            <div class="topbar">
+                <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 7h16M4 12h16M4 17h16" />
+                    </svg>
+                </button>
+                <div class="search"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="10.5" cy="10.5" r="6.5" />
+                        <path d="m20 20-4.5-4.5" />
+                    </svg> <span class="search-label">Search music, books, artists…</span></div>
+                <div class="topbar-right">
+                    <div class="link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
+                            <path d="m3.5 6 8.5 7 8.5-7" />
+                        </svg> <span class="label">Inquiry</span></div>
+                    <div class="link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9.5" cy="19.5" r="1.2" />
+                            <circle cx="17.5" cy="19.5" r="1.2" />
+                            <path d="M3 4h2l2.2 11.2a1.5 1.5 0 0 0 1.5 1.3h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6" />
+                        </svg> <span class="label">Cart</span> <span class="cart-count">3</span></div>
+                    <div class="link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="3.5" />
+                            <path d="M5 20c1-4 4-6 7-6s6 2 7 6" />
+                        </svg> <span class="label">Account</span></div>
+                </div>
+            </div>
+
+            <!-- ===================== HERO ===================== -->
+            <section class="hero" style="border-bottom:1px solid var(--line);">
+                <div class="hero-backdrop">
+                    <div class="hero-mesh"></div>
+                    <div class="hero-wordmark">LK</div>
+                    <svg class="hero-wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path
+                            d="M0,60 Q30,20 60,60 T120,60 T180,30 T240,60 T300,80 T360,60 T420,40 T480,60 T540,70 T600,50 T660,60 T720,30 T780,60 T840,80 T900,60 T960,40 T1020,60 T1080,70 T1140,50 T1200,60"
+                            fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.35" />
+                    </svg>
+                </div>
+                <div class="hero-inner">
+                    <div class="eyebrow"><span class="rule"></span> Left Koast Production / Archive</div>
+                    <h1>Elevated sound.<br><em>Direct from the Koast.</em></h1>
+                    <p class="desc">Premium audio artifacts, lo‑fi blueprints, and studio‑grade textures — curated for
+                        creators by the Left Koast production team.</p>
+                    <div class="hero-actions">
+                        <button class="btn-primary">Explore catalog <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h16M14 6l6 6-6 6" />
+                            </svg></button>
+                        <div class="hero-note"><span class="dot">●</span>&nbsp; 03 // Fragments of Realities out now
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== CATEGORIES ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">Browse by category</div>
+                        <div class="section-sub">Six ways into the catalog</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-card cat-music">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18V5l11-2v13" />
+                                <circle cx="6.5" cy="18" r="2.5" />
+                                <circle cx="17.5" cy="16" r="2.5" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">Music</div>
+                            <div class="count">1,204 releases</div>
+                        </div>
+                    </div>
+                    <div class="cat-card cat-ebooks">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M12 6.5c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5Z" />
+                                <path d="M12 6.5v13" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">eBooks</div>
+                            <div class="count">86 titles</div>
+                        </div>
+                    </div>
+                    <div class="cat-card cat-audio">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+                                <rect x="3" y="14" width="4.5" height="6" rx="1.5" />
+                                <rect x="16.5" y="14" width="4.5" height="6" rx="1.5" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">Audiobooks</div>
+                            <div class="count">41 titles</div>
+                        </div>
+                    </div>
+                    <div class="cat-card cat-art">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3.5" y="4.5" width="17" height="15" rx="1.5" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m5 18 5-5.5 3 3 3-4L20 16" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">Art</div>
+                            <div class="count">312 pieces</div>
+                        </div>
+                    </div>
+                    <div class="cat-card cat-merch">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 4 4 7l2.5 3L8 9v11h8V9l1.5 1L20 7l-4-3-2 2h-4L8 4Z" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">Merch</div>
+                            <div class="count">28 items</div>
+                        </div>
+                    </div>
+                    <div class="cat-card cat-bundles">
+                        <div class="cat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3.5" y="3.5" width="7" height="7" rx="1" />
+                                <rect x="13.5" y="3.5" width="7" height="7" rx="1" />
+                                <rect x="3.5" y="13.5" width="7" height="7" rx="1" />
+                                <rect x="13.5" y="13.5" width="7" height="7" rx="1" />
+                            </svg></div>
+                        <div class="cat-meta">
+                            <div class="name">Bundles</div>
+                            <div class="count">12 sets</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== NEW RELEASES ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">New releases</div>
+                        <div class="section-sub">Fresh from the studio</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="release-grid">
+
+                    <div class="release-card">
+                        <div class="release-cover cv-music">
+                            <div class="badge">NEW</div>
+                            <div class="cover-tag">ALBUM</div>
+                            <div class="play-btn"><svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg></div>
+                        </div>
+                        <div class="release-title">Fragments of Realities</div>
+                        <div class="release-artist">PHOTIK</div>
+                        <div class="release-foot"><span class="release-tag">Electronic</span><span
+                                class="release-price">$9.99</span></div>
+                    </div>
+
+                    <div class="release-card">
+                        <div class="release-cover cv-ebooks">
+                            <div class="badge">PRE-ORDER</div>
+                            <div class="cover-tag">EBOOK</div>
+                        </div>
+                        <div class="release-title">The Cartographer's Daughter</div>
+                        <div class="release-artist">Mara Okafor</div>
+                        <div class="release-foot"><span class="release-tag">Ebook</span><span
+                                class="release-price">$11.99</span></div>
+                    </div>
+
+                    <div class="release-card">
+                        <div class="release-cover cv-audio">
+                            <div class="badge">NEW</div>
+                            <div class="cover-tag">SINGLE</div>
+                            <div class="play-btn"><svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg></div>
+                        </div>
+                        <div class="release-title">Midnight Drift</div>
+                        <div class="release-artist">Aria Vale</div>
+                        <div class="release-foot"><span class="release-tag">R&amp;B</span><span
+                                class="release-price">$1.99</span></div>
+                    </div>
+
+                    <div class="release-card">
+                        <div class="release-cover cv-art">
+                            <div class="badge">NEW</div>
+                            <div class="cover-tag">AUDIOBOOK</div>
+                            <div class="play-btn"><svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg></div>
+                        </div>
+                        <div class="release-title">Beyond the Noise</div>
+                        <div class="release-artist">Elena Rivera</div>
+                        <div class="release-foot"><span class="release-tag">Audiobook</span><span
+                                class="release-price">$14.99</span></div>
+                    </div>
+
+                    <div class="release-card">
+                        <div class="release-cover cv-merch">
+                            <div class="badge">NEW</div>
+                            <div class="cover-tag">MERCH</div>
+                        </div>
+                        <div class="release-title">PHOTIK Fragments Hoodie</div>
+                        <div class="release-artist">PHOTIK</div>
+                        <div class="release-foot"><span class="release-tag">Merch</span><span
+                                class="release-price">$58.00</span></div>
+                    </div>
+
+                    <div class="release-card">
+                        <div class="release-cover cv-bundles">
+                            <div class="cover-tag">BUNDLE</div>
+                        </div>
+                        <div class="release-title">PHOTIK: Complete Discography</div>
+                        <div class="release-artist">PHOTIK</div>
+                        <div class="release-foot"><span class="release-tag">Bundle</span><span
+                                class="release-price">$13.99</span></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===================== LIVE EVENTS ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">Live events</div>
+                        <div class="section-sub">The Left Koast launch party</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="event-grid">
+                    <div class="event-card">
+                        <div class="event-top">
+                            <div class="event-icon"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.8 1.8 0 0 0 0 3.6v1.9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.9a1.8 1.8 0 0 0 0-3.6V8.5Z" />
+                                    <path d="M14 7v10" stroke-dasharray="2 2" />
+                                </svg></div>
+                            <div>
+                                <div class="name">General admission</div>
+                                <div class="kind">Event ticket</div>
+                            </div>
+                        </div>
+                        <div class="event-price">$75</div>
+                        <div class="event-reserve">Reserve <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h16M14 6l6 6-6 6" />
+                            </svg></div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-top">
+                            <div class="event-icon"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.8 1.8 0 0 0 0 3.6v1.9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.9a1.8 1.8 0 0 0 0-3.6V8.5Z" />
+                                    <path d="M14 7v10" stroke-dasharray="2 2" />
+                                </svg></div>
+                            <div>
+                                <div class="name">Studio floor</div>
+                                <div class="kind">Event ticket</div>
+                            </div>
+                        </div>
+                        <div class="event-price">$500</div>
+                        <div class="event-reserve">Reserve <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h16M14 6l6 6-6 6" />
+                            </svg></div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-top">
+                            <div class="event-icon"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.8 1.8 0 0 0 0 3.6v1.9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.9a1.8 1.8 0 0 0 0-3.6V8.5Z" />
+                                    <path d="M14 7v10" stroke-dasharray="2 2" />
+                                </svg></div>
+                            <div>
+                                <div class="name">Producer table</div>
+                                <div class="kind">Event ticket</div>
+                            </div>
+                        </div>
+                        <div class="event-price">$1,000</div>
+                        <div class="event-reserve">Reserve <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h16M14 6l6 6-6 6" />
+                            </svg></div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-top">
+                            <div class="event-icon"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.8 1.8 0 0 0 0 3.6v1.9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.9a1.8 1.8 0 0 0 0-3.6V8.5Z" />
+                                    <path d="M14 7v10" stroke-dasharray="2 2" />
+                                </svg></div>
+                            <div>
+                                <div class="name">Archive patron</div>
+                                <div class="kind">Event ticket</div>
+                            </div>
+                        </div>
+                        <div class="event-price">$2,500</div>
+                        <div class="event-reserve">Reserve <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h16M14 6l6 6-6 6" />
+                            </svg></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FEATURED COLLECTIONS ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">Featured collections</div>
+                        <div class="section-sub">Curated for the moment</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="coll-grid">
+                    <div class="coll-card coll-1">
+                        <div class="coll-meta">
+                            <div class="name">Chill study beats</div>
+                            <div class="sub">4 releases</div>
+                        </div>
+                    </div>
+                    <div class="coll-card coll-2">
+                        <div class="coll-meta">
+                            <div class="name">Indie essentials</div>
+                            <div class="sub">6 releases</div>
+                        </div>
+                    </div>
+                    <div class="coll-card coll-3">
+                        <div class="coll-meta">
+                            <div class="name">Sci-fi &amp; fantasy</div>
+                            <div class="sub">Books &amp; audiobooks</div>
+                        </div>
+                    </div>
+                    <div class="coll-card coll-4">
+                        <div class="coll-meta">
+                            <div class="name">Emerging artists</div>
+                            <div class="sub">Fresh talent</div>
+                        </div>
+                    </div>
+                    <div class="coll-card coll-5">
+                        <div class="coll-meta">
+                            <div class="name">Lo-fi vibes</div>
+                            <div class="sub">3 releases</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== TOP SELLING ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">Top selling</div>
+                        <div class="section-sub">This week across the Koast</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="top-list">
+                    <div class="top-row">
+                        <div class="top-rank">01</div>
+                        <div class="top-thumb t1"></div>
+                        <div>
+                            <div class="top-name">Lost in Transit</div>
+                            <div class="top-sub">Novenstate · Album</div>
+                        </div>
+                        <div class="top-price">$7.99</div>
+                    </div>
+                    <div class="top-row">
+                        <div class="top-rank">02</div>
+                        <div class="top-thumb t2"></div>
+                        <div>
+                            <div class="top-name">Still Standing</div>
+                            <div class="top-sub">Jalen Kade · Album</div>
+                        </div>
+                        <div class="top-price">$8.99</div>
+                    </div>
+                    <div class="top-row">
+                        <div class="top-rank">03</div>
+                        <div class="top-thumb t3"></div>
+                        <div>
+                            <div class="top-name">Mind Over Motion</div>
+                            <div class="top-sub">Vincent Tam · eBook</div>
+                        </div>
+                        <div class="top-price">$12.00</div>
+                    </div>
+                    <div class="top-row">
+                        <div class="top-rank">04</div>
+                        <div class="top-thumb t4"></div>
+                        <div>
+                            <div class="top-name">Digital Dreams</div>
+                            <div class="top-sub">PHOTIK · EP</div>
+                        </div>
+                        <div class="top-price">$5.99</div>
+                    </div>
+                    <div class="top-row">
+                        <div class="top-rank">05</div>
+                        <div class="top-thumb t5"></div>
+                        <div>
+                            <div class="top-name">Quiet Hours</div>
+                            <div class="top-sub">Vincent Tam · Audiobook</div>
+                        </div>
+                        <div class="top-price">$13.99</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FEATURED CREATORS ===================== -->
+            <section>
+                <div class="section-head">
+                    <div>
+                        <div class="section-title">Featured creators</div>
+                        <div class="section-sub">Voices on the Koast</div>
+                    </div>
+                    <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12h16M14 6l6 6-6 6" />
+                        </svg></a>
+                </div>
+                <div class="creator-grid">
+                    <div class="creator-card">
+                        <div class="creator-avatar">N</div>
+                        <div>
+                            <div class="creator-name">Novenstate</div>
+                            <div class="creator-role">Electronic</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                    <div class="creator-card">
+                        <div class="creator-avatar">P</div>
+                        <div>
+                            <div class="creator-name">PHOTIK</div>
+                            <div class="creator-role">Electronic / Ambient</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                    <div class="creator-card">
+                        <div class="creator-avatar">A</div>
+                        <div>
+                            <div class="creator-name">Aria Vale</div>
+                            <div class="creator-role">Pop / R&amp;B</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                    <div class="creator-card">
+                        <div class="creator-avatar">J</div>
+                        <div>
+                            <div class="creator-name">Jalen Kade</div>
+                            <div class="creator-role">Hip hop</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                    <div class="creator-card">
+                        <div class="creator-avatar">V</div>
+                        <div>
+                            <div class="creator-name">Vincent Tam</div>
+                            <div class="creator-role">Author</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                    <div class="creator-card">
+                        <div class="creator-avatar">L</div>
+                        <div>
+                            <div class="creator-name">Lana Sophia</div>
+                            <div class="creator-role">Visual artist</div>
+                        </div><button class="btn-follow">Follow</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== NEWSLETTER ===================== -->
+            <section style="border-bottom:none; padding-bottom:0;">
+                <div class="newsletter">
+                    <div>
+                        <h3>A home for creators.<br>A platform for culture.</h3>
+                        <p>Support independent artists and get exclusive content.</p>
+                    </div>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button class="btn-primary">Join Left Koast</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FOOTER ===================== -->
+            <footer>
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <div class="brand">
+                            <div class="brand-mark">LK</div>
+                            <div class="brand-name">LEFT&nbsp;KOAST</div>
+                        </div>
+                        <p>Left Koast is a marketplace for independent creators. Music, books, art, and more — all in
+                            one place.</p>
+                    </div>
+                    <div class="footer-cols">
+                        <div class="footer-col">
+                            <h4>Company</h4><a href="#">About us</a><a href="#">Careers</a><a href="#">Press</a><a
+                                href="#">Contact</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Support</h4><a href="#">Help center</a><a href="#">Creator guide</a><a
+                                href="#">Community</a><a href="#">Safety</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Legal</h4><a href="#">Terms of use</a><a href="#">Privacy policy</a><a href="#">Refund
+                                policy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- ===================== PLAYER BAR ===================== -->
+    <div class="player">
+        <div class="player-track">
+            <div class="player-thumb"></div>
+            <div>
+                <div class="name">No signal</div>
+                <div class="sub">LKP Archive</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 5v14" />
+                <path d="M18 6 8 12l10 6V6Z" />
+            </svg>
+            <div class="player-play"><svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                </svg></div>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 5v14" />
+                <path d="M6 6l10 6-10 6V6Z" />
+            </svg>
+        </div>
+        <div class="player-right">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 6 4 0 8 12 4 0" />
+                <path d="m17 5 3 1-1 3" />
+                <path d="m3 18 4 0 3.5-5.5" />
+                <path d="m17 19 3-1-1-3" />
+                <path d="m11 6.5 1-1" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m5 8 0-2a2 2 0 0 1 2-2h11l-3-3M19 16v2a2 2 0 0 1-2 2H6l3 3" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 9.5v5h3.5L13 18V6L8.5 9.5H5Z" />
+                <path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11" />
+            </svg>
+            <div class="vol-track"></div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var sidebar = document.getElementById('sidebar');
+            var overlay = document.getElementById('sidebarOverlay');
+            var openBtn = document.getElementById('menuToggle');
+            var closeBtn = document.getElementById('sidebarClose');
+
+            function openMenu() {
+                sidebar.classList.add('open');
+                overlay.classList.add('show');
+            }
+            function closeMenu() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('show');
+            }
+            openBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            document.querySelectorAll('.sidebar .nav-item').forEach(function (el) {
+                el.addEventListener('click', closeMenu);
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
