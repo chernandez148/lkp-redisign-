@@ -909,20 +909,12 @@
             display: flex;
             align-items: flex-end;
             border: 1px solid var(--line);
-            background: var(--coll-grad);
             transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
         .coll-card:hover {
             border-color: var(--line-strong);
             transform: translateY(-2px);
-        }
-
-        .coll-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, rgba(11, 10, 6, 0.8), rgba(11, 10, 6, 0.1) 60%);
         }
 
         .coll-meta {
@@ -939,27 +931,16 @@
         .coll-meta .sub {
             font-family: var(--mono);
             font-size: 10px;
-            color: rgba(244, 239, 226, 0.6);
+            color: var(--ink-faint);
         }
 
-        .coll-1 {
-            --coll-grad: linear-gradient(160deg, #1c3b33, #0b0a06 70%);
+        /* Reset background image and dark overlay when using category gradients in collections */
+        .coll-card.cat-card {
+            background-image: none;
         }
 
-        .coll-2 {
-            --coll-grad: linear-gradient(160deg, #2a2410, #0b0a06 70%);
-        }
-
-        .coll-3 {
-            --coll-grad: linear-gradient(160deg, #131c3b, #0b0a06 70%);
-        }
-
-        .coll-4 {
-            --coll-grad: linear-gradient(160deg, #3b1424, #0b0a06 70%);
-        }
-
-        .coll-5 {
-            --coll-grad: linear-gradient(160deg, #12b4b0, #0b0a06 70%);
+        .coll-card.cat-card::before {
+            background: var(--cat-grad);
         }
 
         /* ============ TOP SELLING ============ */
@@ -1619,6 +1600,292 @@
                 height: 15px;
             }
         }
+
+
+        /* ============ TEMPORARY REMOTE PRODUCT ART ============ */
+        .release-cover {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .release-card:nth-child(1) .release-cover {
+            background-image:
+                linear-gradient(160deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .38)),
+                url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .release-card:nth-child(2) .release-cover {
+            background-image:
+                linear-gradient(180deg, rgba(0, 0, 0, .03), rgba(0, 0, 0, .34)),
+                url("https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .release-card:nth-child(3) .release-cover {
+            background-image:
+                linear-gradient(160deg, rgba(0, 0, 0, .03), rgba(0, 0, 0, .36)),
+                url("https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .release-card:nth-child(4) .release-cover {
+            background-image:
+                linear-gradient(150deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .42)),
+                url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .release-card:nth-child(5) .release-cover {
+            background-image:
+                linear-gradient(160deg, rgba(0, 0, 0, .02), rgba(0, 0, 0, .36)),
+                url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .release-card:nth-child(6) .release-cover {
+            background-image:
+                linear-gradient(165deg, rgba(0, 0, 0, .03), rgba(0, 0, 0, .42)),
+                url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .top-thumb {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .top-row:nth-child(1) .top-thumb {
+            background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=180&q=75");
+        }
+
+        .top-row:nth-child(2) .top-thumb {
+            background-image: url("https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=180&q=75");
+        }
+
+        .top-row:nth-child(3) .top-thumb {
+            background-image: url("https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=180&q=75");
+        }
+
+        .top-row:nth-child(4) .top-thumb {
+            background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=180&q=75");
+        }
+
+        .top-row:nth-child(5) .top-thumb {
+            background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=180&q=75");
+        }
+
+        /* ============ LIGHT / DARK THEME ============ */
+        :root {
+            color-scheme: dark;
+        }
+
+        :root[data-theme="light"] {
+            color-scheme: light;
+
+            --bg: #f7f4ec;
+            --bg-1: #eee9dd;
+            --bg-2: #e5dfd1;
+            --sidebar: #fbf9f3;
+            --ink: #201d17;
+            --ink-dim: #665f52;
+            --ink-faint: #918979;
+            --line: rgba(32, 29, 23, 0.11);
+            --line-strong: rgba(32, 29, 23, 0.19);
+            --accent: #b77922;
+            --accent-soft: rgba(183, 121, 34, 0.13);
+            --accent-ink: #fffaf0;
+        }
+
+        :root[data-theme="light"] body::before {
+            opacity: 0.025;
+            mix-blend-mode: multiply;
+        }
+
+        :root[data-theme="light"] .topbar {
+            background: rgba(247, 244, 236, 0.88);
+        }
+
+        :root[data-theme="light"] .nav-item:hover {
+            background: rgba(32, 29, 23, 0.035);
+        }
+
+        :root[data-theme="light"] .nav-item.active {
+            background: linear-gradient(90deg, rgba(183, 121, 34, 0.14), rgba(183, 121, 34, 0.025));
+        }
+
+        :root[data-theme="light"] .sidebar-overlay {
+            background: rgba(32, 29, 23, 0.28);
+        }
+
+        :root[data-theme="light"] .hero h1 em {
+            background: linear-gradient(90deg, var(--ink), var(--accent) 120%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        :root[data-theme="light"] .hero-wordmark {
+            -webkit-text-stroke: 1px rgba(32, 29, 23, 0.065);
+        }
+
+        :root[data-theme="light"] .cat-icon {
+            background: rgba(255, 255, 255, 0.42);
+        }
+
+        :root[data-theme="light"] .cat-card::after {
+            mix-blend-mode: multiply;
+            opacity: 0.18;
+        }
+
+        :root[data-theme="light"] .badge {
+            background: rgba(32, 29, 23, 0.62);
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #fffaf0;
+        }
+
+        :root[data-theme="light"] .play-btn {
+            background: rgba(32, 29, 23, 0.62);
+            border-color: rgba(255, 255, 255, 0.30);
+        }
+
+        :root[data-theme="light"] .cover-tag {
+            color: rgba(255, 250, 240, 0.78);
+        }
+
+        :root[data-theme="light"] .coll-meta .sub {
+            color: rgba(255, 250, 240, 0.72);
+        }
+
+        :root[data-theme="light"] .player {
+            background: rgba(251, 249, 243, 0.94);
+        }
+
+        :root[data-theme="light"] .player-thumb {
+            background: linear-gradient(160deg, #d9d0bc, #a89a7d);
+        }
+
+        :root[data-theme="light"] .player-popup {
+            box-shadow: 0 10px 30px rgba(32, 29, 23, 0.18);
+        }
+
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--ink-dim);
+            transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle-icon {
+            position: absolute;
+            font-family: Georgia, serif;
+            font-size: 17px;
+            line-height: 1;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-sun {
+            opacity: 0;
+            transform: scale(0.7) rotate(-20deg);
+        }
+
+        .theme-moon {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        :root[data-theme="light"] .theme-sun {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        :root[data-theme="light"] .theme-moon {
+            opacity: 0;
+            transform: scale(0.7) rotate(20deg);
+        }
+
+        @media (max-width: 640px) {
+            .theme-toggle {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* ===== REFINED CATEGORY VISUALS ===== */
+        .cat-music {
+            --cat-grad: linear-gradient(145deg, #292329, #59404e);
+            --cat-c1: #59404e;
+        }
+
+        .cat-ebooks {
+            --cat-grad: linear-gradient(145deg, #2b2923, #665b46);
+            --cat-c1: #665b46;
+        }
+
+        .cat-audio {
+            --cat-grad: linear-gradient(145deg, #232c2a, #4c625c);
+            --cat-c1: #4c625c;
+        }
+
+        .cat-art {
+            --cat-grad: linear-gradient(145deg, #302a27, #67554b);
+            --cat-c1: #67554b;
+        }
+
+        .cat-merch {
+            --cat-grad: linear-gradient(145deg, #29262d, #574d61);
+            --cat-c1: #574d61;
+        }
+
+        .cat-bundles {
+            --cat-grad: linear-gradient(145deg, #252b27, #4d6255);
+            --cat-c1: #4d6255;
+        }
+
+        .cat-card::after {
+            opacity: .16;
+            mix-blend-mode: screen;
+        }
+
+        :root[data-theme="light"] .cat-music {
+            --cat-grad: linear-gradient(145deg, #ddd5da, #bca7b2);
+            --cat-c1: #bca7b2;
+        }
+
+        :root[data-theme="light"] .cat-ebooks {
+            --cat-grad: linear-gradient(145deg, #e2ddd2, #c7bda6);
+            --cat-c1: #c7bda6;
+        }
+
+        :root[data-theme="light"] .cat-audio {
+            --cat-grad: linear-gradient(145deg, #d7dfdc, #afc1ba);
+            --cat-c1: #afc1ba;
+        }
+
+        :root[data-theme="light"] .cat-art {
+            --cat-grad: linear-gradient(145deg, #e1d8d2, #c9b5a8);
+            --cat-c1: #c9b5a8;
+        }
+
+        :root[data-theme="light"] .cat-merch {
+            --cat-grad: linear-gradient(145deg, #ddd8e0, #beb1c7);
+            --cat-c1: #beb1c7;
+        }
+
+        :root[data-theme="light"] .cat-bundles {
+            --cat-grad: linear-gradient(145deg, #d9dfda, #b4c5b9);
+            --cat-c1: #b4c5b9;
+        }
+
+        :root[data-theme="light"] .cat-icon {
+            background: rgba(255, 255, 255, .42);
+        }
     </style>
 </head>
 
@@ -1705,6 +1972,11 @@
                         <circle cx="10.5" cy="10.5" r="6.5" />
                         <path d="m20 20-4.5-4.5" />
                     </svg> <span class="search-label">Search music, books, artists…</span></div>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode"
+                    title="Switch theme">
+                    <span class="theme-toggle-icon theme-sun" aria-hidden="true">☼</span>
+                    <span class="theme-toggle-icon theme-moon" aria-hidden="true">◐</span>
+                </button>
                 <div class="topbar-right">
                     <div class="link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -1739,7 +2011,8 @@
                 <div class="hero-inner">
                     <div class="eyebrow"><span class="rule"></span> Left Koast Platform</div>
                     <h1>Featured sound.<br><em>Direct from the creators.</em></h1>
-                    <p class="desc">Curated music, ebooks, and digital media — brought to you directly by independent creators.</p>
+                    <p class="desc">Curated music, ebooks, and digital media — brought to you directly by independent
+                        creators.</p>
                     <div class="hero-actions">
                         <button class="btn-primary">Explore catalog <svg class="icon" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -1963,7 +2236,8 @@
                         <div>
                             <div class="event-badge">General Access</div>
                             <div class="event-title">General Admission</div>
-                            <div class="event-desc">Full entry to the live showcase, listening session, and launch venue.</div>
+                            <div class="event-desc">Full entry to the live showcase, listening session, and launch
+                                venue.</div>
                         </div>
                         <div class="event-foot">
                             <span class="event-price">$75</span>
@@ -1975,7 +2249,8 @@
                         <div>
                             <div class="event-badge">Premium Access</div>
                             <div class="event-title">VIP Floor Pass</div>
-                            <div class="event-desc">Priority entry, exclusive merch bundle, and lounge floor access.</div>
+                            <div class="event-desc">Priority entry, exclusive merch bundle, and lounge floor access.
+                            </div>
                         </div>
                         <div class="event-foot">
                             <span class="event-price">$500</span>
@@ -1987,7 +2262,8 @@
                         <div>
                             <div class="event-badge">Full Experience</div>
                             <div class="event-title">Producer Table</div>
-                            <div class="event-desc">Reserved group table, signed physical media, and artist meet-and-greet.</div>
+                            <div class="event-desc">Reserved group table, signed physical media, and artist
+                                meet-and-greet.</div>
                         </div>
                         <div class="event-foot">
                             <span class="event-price">$1,000</span>
@@ -1997,11 +2273,11 @@
                 </div>
             </section>
 
-            <!-- ===================== FEATURED COLLECTIONS ===================== -->
+            <!-- ===================== FEATURED GENRES ===================== -->
             <section class="tint">
                 <div class="section-head">
                     <div>
-                        <div class="section-title">Featured collections</div>
+                        <div class="section-title">Featured genres</div>
                         <div class="section-sub">Curated lists</div>
                     </div>
                     <a class="view-all" href="#">View all <svg class="icon" viewBox="0 0 24 24" fill="none"
@@ -2010,34 +2286,34 @@
                         </svg></a>
                 </div>
                 <div class="coll-grid">
-                    <div class="coll-card coll-1">
+                    <div class="coll-card cat-card cat-music">
                         <div class="coll-meta">
-                            <div class="name">Relaxing music</div>
-                            <div class="sub">Smooth tracks — 3 releases</div>
+                            <div class="name">Hip-Hop &amp; Rap</div>
+                            <div class="sub">482 releases</div>
                         </div>
                     </div>
-                    <div class="coll-card coll-2">
+                    <div class="coll-card cat-card cat-ebooks">
                         <div class="coll-meta">
-                            <div class="name">Indie essentials</div>
-                            <div class="sub">6 releases</div>
+                            <div class="name">R&amp;B &amp; Soul</div>
+                            <div class="sub">310 releases</div>
                         </div>
                     </div>
-                    <div class="coll-card coll-3">
+                    <div class="coll-card cat-card cat-audio">
                         <div class="coll-meta">
-                            <div class="name">Sci-fi &amp; fantasy</div>
-                            <div class="sub">Books &amp; audiobooks</div>
+                            <div class="name">Electronic &amp; Ambient</div>
+                            <div class="sub">245 releases</div>
                         </div>
                     </div>
-                    <div class="coll-card coll-4">
+                    <div class="coll-card cat-card cat-art">
                         <div class="coll-meta">
-                            <div class="name">Emerging artists</div>
-                            <div class="sub">New talent &amp; releases</div>
+                            <div class="name">Lo-Fi &amp; Chill</div>
+                            <div class="sub">189 releases</div>
                         </div>
                     </div>
-                    <div class="coll-card coll-5">
+                    <div class="coll-card cat-card cat-bundles">
                         <div class="coll-meta">
-                            <div class="name">Lo-fi vibes</div>
-                            <div class="sub">3 releases</div>
+                            <div class="name">Indie &amp; Alternative</div>
+                            <div class="sub">124 releases</div>
                         </div>
                     </div>
                 </div>
@@ -2184,7 +2460,8 @@
                             <div class="brand-mark">LK</div>
                             <div class="brand-name">LEFT&nbsp;KOAST</div>
                         </div>
-                        <p>Left Koast is a digital marketplace for independent creators. Music, books, art, and more — all in
+                        <p>Left Koast is a digital marketplace for independent creators. Music, books, art, and more —
+                            all in
                             one place.</p>
                     </div>
                     <div class="footer-cols">
@@ -2297,6 +2574,33 @@
     </div>
 
     <script>
+        // Theme Toggle
+        (function () {
+            var root = document.documentElement;
+            var toggle = document.getElementById('themeToggle');
+            var savedTheme = localStorage.getItem('left-koast-theme');
+
+            root.setAttribute('data-theme', savedTheme === 'light' ? 'light' : 'dark');
+
+            function updateThemeLabel() {
+                if (!toggle) return;
+                var isLight = root.getAttribute('data-theme') === 'light';
+                toggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+                toggle.setAttribute('title', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+            }
+
+            if (toggle) {
+                updateThemeLabel();
+
+                toggle.addEventListener('click', function () {
+                    var nextTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    root.setAttribute('data-theme', nextTheme);
+                    localStorage.setItem('left-koast-theme', nextTheme);
+                    updateThemeLabel();
+                });
+            }
+        })();
+
         (function () {
             var sidebar = document.getElementById('sidebar');
             var overlay = document.getElementById('sidebarOverlay');
