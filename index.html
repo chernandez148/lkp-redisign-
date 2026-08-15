@@ -26,7 +26,6 @@
             --accent-soft: rgba(215, 164, 78, 0.14);
             --accent-ink: #171207;
 
-            /* Multi-color Vibrant Gradients */
             --g-music-1: #8b3ff0;
             --g-music-2: #ef5da8;
             --g-ebooks-1: #e9dab3;
@@ -386,19 +385,32 @@
             color: var(--accent);
         }
 
-        /* ============ HERO ============ */
-        .hero {
-            padding: 0 40px 70px;
+        /* ============ HERO CAROUSEL ============ */
+        .hero-carousel {
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid var(--line);
         }
 
+        .hero-slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            position: relative;
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 40px 40px;
+            overflow: hidden;
+        }
+
         .hero-inner {
-            padding-top: 64px;
             position: relative;
             z-index: 2;
-            max-width: 640px;
+            max-width: 560px;
         }
 
         .hero .eyebrow {
@@ -443,7 +455,7 @@
             margin-top: 34px;
             display: flex;
             align-items: center;
-            gap: 22px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
@@ -478,6 +490,25 @@
             transform: translateX(3px);
         }
 
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--sans);
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--ink-dim);
+            padding: 14px 22px;
+            border: 1px solid var(--line-strong);
+            border-radius: 30px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         .hero-note {
             font-family: var(--mono);
             font-size: 11px;
@@ -487,6 +518,32 @@
 
         .hero-note .dot {
             color: var(--accent);
+        }
+
+        .hero-album-art {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            aspect-ratio: 1/1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--line-strong);
+        }
+
+        .hero-cover {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-cover-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139, 63, 240, 0.25), rgba(215, 164, 78, 0.15));
         }
 
         .hero-backdrop {
@@ -523,13 +580,54 @@
             user-select: none;
         }
 
-        .hero-wave {
+        /* Hero Slide 1 - Original */
+        .hero-slide-original .hero-inner {
+            max-width: 640px;
+        }
+
+        .hero-slide-original .hero p.desc {
+            max-width: 420px;
+        }
+
+        .hero-slide-original .hero-album-art {
+            display: none;
+        }
+
+        /* Hero Slide 2 - Album Art */
+        .hero-slide-album .hero-inner {
+            max-width: 560px;
+        }
+
+        /* Carousel Controls - Dots Only */
+        .carousel-controls {
             position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 120px;
-            opacity: 0.55;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            border-color: var(--accent);
         }
 
         /* ============ CATEGORY CARDS ============ */
@@ -617,33 +715,38 @@
         }
 
         .cat-music {
-            --cat-grad: linear-gradient(135deg, var(--g-music-1), var(--g-music-2));
-            --cat-c1: var(--g-music-2);
+            --cat-grad: linear-gradient(145deg, #292329, #59404e);
+            --cat-c1: #59404e;
         }
 
         .cat-ebooks {
-            --cat-grad: linear-gradient(135deg, var(--g-ebooks-1), var(--g-ebooks-2));
-            --cat-c1: var(--g-ebooks-1);
+            --cat-grad: linear-gradient(145deg, #2b2923, #665b46);
+            --cat-c1: #665b46;
         }
 
         .cat-audio {
-            --cat-grad: linear-gradient(135deg, var(--g-audio-1), var(--g-audio-2));
-            --cat-c1: var(--g-audio-1);
+            --cat-grad: linear-gradient(145deg, #232c2a, #4c625c);
+            --cat-c1: #4c625c;
         }
 
         .cat-art {
-            --cat-grad: linear-gradient(135deg, var(--g-art-1), var(--g-art-2));
-            --cat-c1: var(--g-art-2);
+            --cat-grad: linear-gradient(145deg, #302a27, #67554b);
+            --cat-c1: #67554b;
         }
 
         .cat-merch {
-            --cat-grad: linear-gradient(135deg, var(--g-merch-1), var(--g-merch-2));
-            --cat-c1: var(--g-merch-2);
+            --cat-grad: linear-gradient(145deg, #29262d, #574d61);
+            --cat-c1: #574d61;
         }
 
         .cat-bundles {
-            --cat-grad: linear-gradient(135deg, var(--g-bundles-1), var(--g-bundles-2));
-            --cat-c1: var(--g-bundles-1);
+            --cat-grad: linear-gradient(145deg, #252b27, #4d6255);
+            --cat-c1: #4d6255;
+        }
+
+        .cat-card::after {
+            opacity: .16;
+            mix-blend-mode: screen;
         }
 
         /* ============ RELEASE RAIL ============ */
@@ -670,6 +773,11 @@
             flex: 0 0 auto;
             width: 260px;
             scroll-snap-align: start;
+            transition: transform 0.25s ease;
+        }
+
+        .release-card:hover {
+            transform: translateY(-4px);
         }
 
         .release-cover {
@@ -679,6 +787,11 @@
             overflow: hidden;
             margin-bottom: 14px;
             background: var(--cover-grad);
+            transition: box-shadow 0.25s ease;
+        }
+
+        .release-card:hover .release-cover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         .release-cover::after {
@@ -706,6 +819,26 @@
             color: var(--ink);
         }
 
+        .release-format-badge {
+            position: absolute;
+            bottom: 52px;
+            left: 10px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(18, 16, 9, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(244, 239, 226, 0.12);
+            color: var(--ink-dim);
+        }
+
         .play-btn {
             position: absolute;
             bottom: 10px;
@@ -720,7 +853,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.15s ease, transform 0.15s ease;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.2s ease;
+        }
+
+        .release-card:hover .play-btn {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .play-btn svg {
@@ -735,18 +875,6 @@
             transform: scale(1.06);
         }
 
-        .cover-tag {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            z-index: 2;
-            font-family: var(--mono);
-            font-size: 9.5px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(244, 239, 226, 0.75);
-        }
-
         .release-title {
             font-family: var(--serif);
             font-size: 16px;
@@ -757,7 +885,24 @@
         .release-artist {
             font-size: 12.5px;
             color: var(--ink-dim);
+            margin-bottom: 4px;
+        }
+
+        .release-tags {
+            display: flex;
+            gap: 6px;
             margin-bottom: 10px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.04em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(215, 164, 78, 0.12);
         }
 
         .release-foot {
@@ -766,18 +911,31 @@
             justify-content: space-between;
         }
 
-        .release-tag {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.06em;
-            color: var(--ink-faint);
-            text-transform: uppercase;
-        }
-
         .release-price {
             font-family: var(--mono);
             font-size: 12.5px;
             color: var(--accent);
+            transition: color 0.2s ease;
+        }
+
+        .release-card:hover .release-price {
+            color: var(--accent);
+        }
+
+        .btn-cart {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 14px;
+            border-radius: 16px;
+            background: var(--accent);
+            color: var(--accent-ink);
+            transition: all 0.15s ease;
+        }
+
+        .btn-cart:hover {
+            transform: scale(1.05);
+            opacity: 0.85;
         }
 
         .cv-music {
@@ -804,7 +962,7 @@
             --cover-grad: linear-gradient(165deg, var(--g-bundles-1), var(--g-bundles-2));
         }
 
-        /* ============ LIVE EVENT PASS REDESIGN ============ */
+        /* ============ LIVE EVENT PASS ============ */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -893,7 +1051,7 @@
             gap: 8px;
         }
 
-        /* ============ UNIFORM COLLECTIONS GRID ============ */
+        /* ============ COLLECTIONS GRID ============ */
         .coll-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -910,6 +1068,7 @@
             align-items: flex-end;
             border: 1px solid var(--line);
             transition: border-color 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
         }
 
         .coll-card:hover {
@@ -934,13 +1093,31 @@
             color: var(--ink-faint);
         }
 
-        /* Reset background image and dark overlay when using category gradients in collections */
-        .coll-card.cat-card {
-            background-image: none;
+        .coll-cta {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--ink-dim);
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateX(8px);
+            z-index: 2;
+        }
+
+        .coll-card:hover .coll-cta {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .coll-card.cat-card::before {
             background: var(--cat-grad);
+        }
+
+        .coll-card.cat-card::after {
+            opacity: .16;
+            mix-blend-mode: screen;
         }
 
         /* ============ TOP SELLING ============ */
@@ -956,11 +1133,13 @@
             gap: 18px;
             padding: 16px 4px;
             border-bottom: 1px solid var(--line);
-            transition: padding-left 0.15s ease;
+            transition: padding-left 0.15s ease, background 0.15s ease;
+            border-radius: 6px;
         }
 
         .top-row:hover {
             padding-left: 10px;
+            background: rgba(244, 239, 226, 0.03);
         }
 
         .top-row:last-child {
@@ -979,6 +1158,8 @@
             height: 46px;
             border-radius: 4px;
             background: var(--thumb-grad);
+            background-size: cover;
+            background-position: center;
         }
 
         .top-name {
@@ -990,6 +1171,23 @@
         .top-sub {
             font-size: 12px;
             color: var(--ink-dim);
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-type {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.06em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
         }
 
         .top-price {
@@ -1018,7 +1216,7 @@
             --thumb-grad: linear-gradient(160deg, #3ddc78, #0d7a49);
         }
 
-        /* ============ CREATORS ============ */
+        /* ============ CREATORS (Original Design) ============ */
         .creator-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -1292,6 +1490,207 @@
             display: none;
         }
 
+        /* ============ LIGHT THEME ============ */
+        :root {
+            color-scheme: dark;
+        }
+
+        :root[data-theme="light"] {
+            color-scheme: light;
+            --bg: #f7f4ec;
+            --bg-1: #eee9dd;
+            --bg-2: #e5dfd1;
+            --sidebar: #fbf9f3;
+            --ink: #201d17;
+            --ink-dim: #665f52;
+            --ink-faint: #918979;
+            --line: rgba(32, 29, 23, 0.11);
+            --line-strong: rgba(32, 29, 23, 0.19);
+            --accent: #b77922;
+            --accent-soft: rgba(183, 121, 34, 0.13);
+            --accent-ink: #fffaf0;
+        }
+
+        :root[data-theme="light"] body::before {
+            opacity: 0.025;
+            mix-blend-mode: multiply;
+        }
+
+        :root[data-theme="light"] .topbar {
+            background: rgba(247, 244, 236, 0.88);
+        }
+
+        :root[data-theme="light"] .nav-item:hover {
+            background: rgba(32, 29, 23, 0.035);
+        }
+
+        :root[data-theme="light"] .nav-item.active {
+            background: linear-gradient(90deg, rgba(183, 121, 34, 0.14), rgba(183, 121, 34, 0.025));
+        }
+
+        :root[data-theme="light"] .sidebar-overlay {
+            background: rgba(32, 29, 23, 0.28);
+        }
+
+        :root[data-theme="light"] .hero h1 em {
+            background: linear-gradient(90deg, var(--ink), var(--accent) 120%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        :root[data-theme="light"] .hero-wordmark {
+            -webkit-text-stroke: 1px rgba(32, 29, 23, 0.065);
+        }
+
+        :root[data-theme="light"] .cat-icon {
+            background: rgba(255, 255, 255, 0.42);
+        }
+
+        :root[data-theme="light"] .cat-card::after {
+            mix-blend-mode: multiply;
+            opacity: 0.18;
+        }
+
+        /* Light mode badge - dark background for visibility */
+        :root[data-theme="light"] .badge {
+            background: rgba(32, 29, 23, 0.75);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fffaf0;
+        }
+
+        /* Light mode format badge - dark background for visibility */
+        :root[data-theme="light"] .release-format-badge {
+            background: rgba(32, 29, 23, 0.7);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 250, 240, 0.85);
+        }
+
+        /* Light mode play button */
+        :root[data-theme="light"] .play-btn {
+            background: rgba(32, 29, 23, 0.7);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        :root[data-theme="light"] .play-btn svg {
+            fill: #fffaf0;
+        }
+
+        :root[data-theme="light"] .play-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Light mode tags - darker for visibility */
+        :root[data-theme="light"] .tag {
+            background: rgba(183, 121, 34, 0.15);
+            color: #8a5f1a;
+            border-color: rgba(183, 121, 34, 0.2);
+        }
+
+        :root[data-theme="light"] .player {
+            background: rgba(251, 249, 243, 0.94);
+        }
+
+        :root[data-theme="light"] .player-thumb {
+            background: linear-gradient(160deg, #d9d0bc, #a89a7d);
+        }
+
+        :root[data-theme="light"] .player-popup {
+            box-shadow: 0 10px 30px rgba(32, 29, 23, 0.18);
+        }
+
+        :root[data-theme="light"] .top-row:hover {
+            background: rgba(32, 29, 23, 0.03);
+        }
+
+        :root[data-theme="light"] .release-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px 12px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        :root[data-theme="light"] .release-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        :root[data-theme="light"] .cat-music {
+            --cat-grad: linear-gradient(145deg, #ddd5da, #bca7b2);
+            --cat-c1: #bca7b2;
+        }
+
+        :root[data-theme="light"] .cat-ebooks {
+            --cat-grad: linear-gradient(145deg, #e2ddd2, #c7bda6);
+            --cat-c1: #c7bda6;
+        }
+
+        :root[data-theme="light"] .cat-audio {
+            --cat-grad: linear-gradient(145deg, #d7dfdc, #afc1ba);
+            --cat-c1: #afc1ba;
+        }
+
+        :root[data-theme="light"] .cat-art {
+            --cat-grad: linear-gradient(145deg, #e1d8d2, #c9b5a8);
+            --cat-c1: #c9b5a8;
+        }
+
+        :root[data-theme="light"] .cat-merch {
+            --cat-grad: linear-gradient(145deg, #ddd8e0, #beb1c7);
+            --cat-c1: #beb1c7;
+        }
+
+        :root[data-theme="light"] .cat-bundles {
+            --cat-grad: linear-gradient(145deg, #d9dfda, #b4c5b9);
+            --cat-c1: #b4c5b9;
+        }
+
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--ink-dim);
+            transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle-icon {
+            position: absolute;
+            font-family: Georgia, serif;
+            font-size: 17px;
+            line-height: 1;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-sun {
+            opacity: 0;
+            transform: scale(0.7) rotate(-20deg);
+        }
+
+        .theme-moon {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        :root[data-theme="light"] .theme-sun {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        :root[data-theme="light"] .theme-moon {
+            opacity: 0;
+            transform: scale(0.7) rotate(20deg);
+        }
+
         /* ============ RESPONSIVE ============ */
         @media (max-width: 1200px) {
             .shell {
@@ -1320,6 +1719,11 @@
 
             .player {
                 left: 190px;
+            }
+
+            .hero-slide .hero-album-art {
+                width: 260px;
+                right: 40px;
             }
         }
 
@@ -1396,17 +1800,45 @@
                 padding: 0;
             }
 
-            .hero {
-                padding: 0 24px 48px;
+            .hero-slide {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 24px 48px;
+                min-height: auto;
             }
 
-            .hero-inner {
-                padding-top: 40px;
+            .hero-slide .hero-inner {
                 max-width: 100%;
+            }
+
+            .hero-slide .hero p.desc {
+                max-width: 100%;
+            }
+
+            .hero-slide .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-slide .hero-album-art {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                max-width: 280px;
+                margin: 30px auto 0;
+            }
+
+            .hero-slide-original .hero-album-art {
+                display: none !important;
             }
 
             footer {
                 padding: 48px 24px 110px;
+            }
+
+            .release-card {
+                width: 220px;
             }
         }
 
@@ -1425,10 +1857,6 @@
 
             .event-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .release-card {
-                width: 220px;
             }
 
             .rail-viewport {
@@ -1474,8 +1902,13 @@
 
             .hero-actions {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                justify-content: center;
             }
 
             .newsletter {
@@ -1514,7 +1947,12 @@
                 gap: 12px;
             }
 
-            /* ============ MOBILE SINGLE-ROW PLAYER BAR ============ */
+            .top-right {
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-end;
+            }
+
             .player {
                 height: 64px;
                 padding: 0 16px;
@@ -1544,7 +1982,6 @@
                 flex-shrink: 0;
             }
 
-            /* Hide full desktop volume/secondary tools on mobile */
             .player-desktop-right {
                 display: none;
             }
@@ -1559,7 +1996,6 @@
                 flex-shrink: 0;
             }
 
-            /* Popup Menu */
             .player-popup {
                 position: absolute;
                 bottom: 56px;
@@ -1599,8 +2035,17 @@
                 width: 15px;
                 height: 15px;
             }
-        }
 
+            .theme-toggle {
+                width: 30px;
+                height: 30px;
+            }
+
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
 
         /* ============ TEMPORARY REMOTE PRODUCT ART ============ */
         .release-cover {
@@ -1644,9 +2089,16 @@
                 url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80");
         }
 
-        .top-thumb {
-            background-size: cover;
-            background-position: center;
+        .hero-cover {
+            background-image:
+                linear-gradient(135deg, rgba(139, 63, 240, 0.15), rgba(215, 164, 78, 0.10)),
+                url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80");
+        }
+
+        .hero-cover-2 {
+            background-image:
+                linear-gradient(135deg, rgba(239, 93, 168, 0.15), rgba(255, 122, 92, 0.10)),
+                url("https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80");
         }
 
         .top-row:nth-child(1) .top-thumb {
@@ -1667,224 +2119,6 @@
 
         .top-row:nth-child(5) .top-thumb {
             background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=180&q=75");
-        }
-
-        /* ============ LIGHT / DARK THEME ============ */
-        :root {
-            color-scheme: dark;
-        }
-
-        :root[data-theme="light"] {
-            color-scheme: light;
-
-            --bg: #f7f4ec;
-            --bg-1: #eee9dd;
-            --bg-2: #e5dfd1;
-            --sidebar: #fbf9f3;
-            --ink: #201d17;
-            --ink-dim: #665f52;
-            --ink-faint: #918979;
-            --line: rgba(32, 29, 23, 0.11);
-            --line-strong: rgba(32, 29, 23, 0.19);
-            --accent: #b77922;
-            --accent-soft: rgba(183, 121, 34, 0.13);
-            --accent-ink: #fffaf0;
-        }
-
-        :root[data-theme="light"] body::before {
-            opacity: 0.025;
-            mix-blend-mode: multiply;
-        }
-
-        :root[data-theme="light"] .topbar {
-            background: rgba(247, 244, 236, 0.88);
-        }
-
-        :root[data-theme="light"] .nav-item:hover {
-            background: rgba(32, 29, 23, 0.035);
-        }
-
-        :root[data-theme="light"] .nav-item.active {
-            background: linear-gradient(90deg, rgba(183, 121, 34, 0.14), rgba(183, 121, 34, 0.025));
-        }
-
-        :root[data-theme="light"] .sidebar-overlay {
-            background: rgba(32, 29, 23, 0.28);
-        }
-
-        :root[data-theme="light"] .hero h1 em {
-            background: linear-gradient(90deg, var(--ink), var(--accent) 120%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        :root[data-theme="light"] .hero-wordmark {
-            -webkit-text-stroke: 1px rgba(32, 29, 23, 0.065);
-        }
-
-        :root[data-theme="light"] .cat-icon {
-            background: rgba(255, 255, 255, 0.42);
-        }
-
-        :root[data-theme="light"] .cat-card::after {
-            mix-blend-mode: multiply;
-            opacity: 0.18;
-        }
-
-        :root[data-theme="light"] .badge {
-            background: rgba(32, 29, 23, 0.62);
-            border-color: rgba(255, 255, 255, 0.28);
-            color: #fffaf0;
-        }
-
-        :root[data-theme="light"] .play-btn {
-            background: rgba(32, 29, 23, 0.62);
-            border-color: rgba(255, 255, 255, 0.30);
-        }
-
-        :root[data-theme="light"] .cover-tag {
-            color: rgba(255, 250, 240, 0.78);
-        }
-
-        :root[data-theme="light"] .coll-meta .sub {
-            color: rgba(255, 250, 240, 0.72);
-        }
-
-        :root[data-theme="light"] .player {
-            background: rgba(251, 249, 243, 0.94);
-        }
-
-        :root[data-theme="light"] .player-thumb {
-            background: linear-gradient(160deg, #d9d0bc, #a89a7d);
-        }
-
-        :root[data-theme="light"] .player-popup {
-            box-shadow: 0 10px 30px rgba(32, 29, 23, 0.18);
-        }
-
-        .theme-toggle {
-            width: 32px;
-            height: 32px;
-            flex-shrink: 0;
-            border: 1px solid var(--line-strong);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            color: var(--ink-dim);
-            transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-1px);
-        }
-
-        .theme-toggle-icon {
-            position: absolute;
-            font-family: Georgia, serif;
-            font-size: 17px;
-            line-height: 1;
-            transition: opacity 0.15s ease, transform 0.15s ease;
-        }
-
-        .theme-sun {
-            opacity: 0;
-            transform: scale(0.7) rotate(-20deg);
-        }
-
-        .theme-moon {
-            opacity: 1;
-            transform: scale(1) rotate(0);
-        }
-
-        :root[data-theme="light"] .theme-sun {
-            opacity: 1;
-            transform: scale(1) rotate(0);
-        }
-
-        :root[data-theme="light"] .theme-moon {
-            opacity: 0;
-            transform: scale(0.7) rotate(20deg);
-        }
-
-        @media (max-width: 640px) {
-            .theme-toggle {
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        /* ===== REFINED CATEGORY VISUALS ===== */
-        .cat-music {
-            --cat-grad: linear-gradient(145deg, #292329, #59404e);
-            --cat-c1: #59404e;
-        }
-
-        .cat-ebooks {
-            --cat-grad: linear-gradient(145deg, #2b2923, #665b46);
-            --cat-c1: #665b46;
-        }
-
-        .cat-audio {
-            --cat-grad: linear-gradient(145deg, #232c2a, #4c625c);
-            --cat-c1: #4c625c;
-        }
-
-        .cat-art {
-            --cat-grad: linear-gradient(145deg, #302a27, #67554b);
-            --cat-c1: #67554b;
-        }
-
-        .cat-merch {
-            --cat-grad: linear-gradient(145deg, #29262d, #574d61);
-            --cat-c1: #574d61;
-        }
-
-        .cat-bundles {
-            --cat-grad: linear-gradient(145deg, #252b27, #4d6255);
-            --cat-c1: #4d6255;
-        }
-
-        .cat-card::after {
-            opacity: .16;
-            mix-blend-mode: screen;
-        }
-
-        :root[data-theme="light"] .cat-music {
-            --cat-grad: linear-gradient(145deg, #ddd5da, #bca7b2);
-            --cat-c1: #bca7b2;
-        }
-
-        :root[data-theme="light"] .cat-ebooks {
-            --cat-grad: linear-gradient(145deg, #e2ddd2, #c7bda6);
-            --cat-c1: #c7bda6;
-        }
-
-        :root[data-theme="light"] .cat-audio {
-            --cat-grad: linear-gradient(145deg, #d7dfdc, #afc1ba);
-            --cat-c1: #afc1ba;
-        }
-
-        :root[data-theme="light"] .cat-art {
-            --cat-grad: linear-gradient(145deg, #e1d8d2, #c9b5a8);
-            --cat-c1: #c9b5a8;
-        }
-
-        :root[data-theme="light"] .cat-merch {
-            --cat-grad: linear-gradient(145deg, #ddd8e0, #beb1c7);
-            --cat-c1: #beb1c7;
-        }
-
-        :root[data-theme="light"] .cat-bundles {
-            --cat-grad: linear-gradient(145deg, #d9dfda, #b4c5b9);
-            --cat-c1: #b4c5b9;
-        }
-
-        :root[data-theme="light"] .cat-icon {
-            background: rgba(255, 255, 255, .42);
         }
     </style>
 </head>
@@ -1997,32 +2231,67 @@
                 </div>
             </div>
 
-            <!-- ===================== HERO ===================== -->
-            <section class="hero" style="border-bottom:1px solid var(--line);">
-                <div class="hero-backdrop">
-                    <div class="hero-mesh"></div>
-                    <div class="hero-wordmark">LK</div>
-                    <svg class="hero-wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                        <path
-                            d="M0,60 Q30,20 60,60 T120,60 T180,30 T240,60 T300,80 T360,60 T420,40 T480,60 T540,70 T600,50 T660,60 T720,30 T780,60 T840,80 T900,60 T960,40 T1020,60 T1080,70 T1140,50 T1200,60"
-                            fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.35" />
-                    </svg>
-                </div>
-                <div class="hero-inner">
-                    <div class="eyebrow"><span class="rule"></span> Left Koast Platform</div>
-                    <h1>Featured sound.<br><em>Direct from the creators.</em></h1>
-                    <p class="desc">Curated music, ebooks, and digital media — brought to you directly by independent
-                        creators.</p>
-                    <div class="hero-actions">
-                        <button class="btn-primary">Explore catalog <svg class="icon" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 12h16M14 6l6 6-6 6" />
-                            </svg></button>
-                        <div class="hero-note"><span class="dot">●</span>&nbsp; Fragments of Realities out now
+            <!-- ===================== HERO CAROUSEL ===================== -->
+            <div class="hero-carousel">
+                <div class="hero-slides" id="heroSlides">
+
+                    <!-- Slide 1: Original Text Hero -->
+                    <div class="hero-slide hero-slide-original">
+                        <div class="hero-backdrop">
+                            <div class="hero-mesh"></div>
+                            <div class="hero-wordmark">LK</div>
+                        </div>
+                        <div class="hero-inner">
+                            <div class="eyebrow"><span class="rule"></span> Left Koast Platform</div>
+                            <h1>Featured sound.<br><em>Direct from the creators.</em></h1>
+                            <p class="desc">Curated music, ebooks, and digital media — brought to you directly by
+                                independent creators.</p>
+                            <div class="hero-actions">
+                                <button class="btn-primary">Explore catalog <svg class="icon" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M4 12h16M14 6l6 6-6 6" />
+                                    </svg></button>
+                                <div class="hero-note"><span class="dot">●</span>&nbsp; Fragments of Realities out now
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Slide 2: Album Art Hero -->
+                    <div class="hero-slide hero-slide-album">
+                        <div class="hero-backdrop">
+                            <div class="hero-mesh"></div>
+                            <div class="hero-wordmark">LK</div>
+                        </div>
+                        <div class="hero-inner">
+                            <div class="eyebrow"><span class="rule"></span> Featured Album</div>
+                            <h1>Fragments of<br><em>Realities</em></h1>
+                            <p class="desc">The new album from PHOTIK. Available now on LeftKoast.</p>
+                            <div class="hero-actions">
+                                <button class="btn-primary">Listen Now <svg class="icon" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M4 12h16M14 6l6 6-6 6" />
+                                    </svg></button>
+                                <button class="btn-secondary">View Album →</button>
+                            </div>
+                        </div>
+                        <div class="hero-album-art">
+                            <div class="hero-cover hero-cover-2">
+                                <div class="hero-cover-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </section>
+
+                <!-- Carousel Controls - Dots Only -->
+                <div class="carousel-controls">
+                    <button class="carousel-dot active" data-index="0" aria-label="Go to slide 1"></button>
+                    <button class="carousel-dot" data-index="1" aria-label="Go to slide 2"></button>
+                </div>
+            </div>
 
             <!-- ===================== CATEGORIES ===================== -->
             <section>
@@ -2144,75 +2413,156 @@
                         <div class="release-card">
                             <div class="release-cover cv-music">
                                 <div class="badge">NEW</div>
-                                <div class="cover-tag">ALBUM</div>
-                                <div class="play-btn"><svg viewBox="0 0 24 24">
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M9 18V5l11-2v13" />
+                                        <circle cx="6.5" cy="18" r="2.5" />
+                                        <circle cx="17.5" cy="16" r="2.5" />
+                                    </svg>
+                                    Album
+                                </div>
+                                <button class="play-btn"><svg viewBox="0 0 24 24">
                                         <path d="M8 5v14l11-7z" />
-                                    </svg></div>
+                                    </svg></button>
                             </div>
                             <div class="release-title">Fragments of Realities</div>
                             <div class="release-artist">PHOTIK</div>
-                            <div class="release-foot"><span class="release-tag">Electronic</span><span
-                                    class="release-price">$9.99</span></div>
+                            <div class="release-tags">
+                                <span class="tag">Electronic</span>
+                                <span class="tag">2026</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$9.99</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                         <div class="release-card">
                             <div class="release-cover cv-ebooks">
                                 <div class="badge">PRE-ORDER</div>
-                                <div class="cover-tag">EBOOK</div>
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M12 6.5c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5" />
+                                        <path d="M12 6.5v13" />
+                                    </svg>
+                                    eBook
+                                </div>
                             </div>
                             <div class="release-title">The Cartographer's Daughter</div>
                             <div class="release-artist">Mara Okafor</div>
-                            <div class="release-foot"><span class="release-tag">Ebook</span><span
-                                    class="release-price">$11.99</span></div>
+                            <div class="release-tags">
+                                <span class="tag">Fiction</span>
+                                <span class="tag">Fantasy</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$11.99</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                         <div class="release-card">
                             <div class="release-cover cv-audio">
                                 <div class="badge">NEW</div>
-                                <div class="cover-tag">SINGLE</div>
-                                <div class="play-btn"><svg viewBox="0 0 24 24">
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+                                        <rect x="3" y="14" width="4.5" height="6" rx="1.5" />
+                                        <rect x="16.5" y="14" width="4.5" height="6" rx="1.5" />
+                                    </svg>
+                                    Single
+                                </div>
+                                <button class="play-btn"><svg viewBox="0 0 24 24">
                                         <path d="M8 5v14l11-7z" />
-                                    </svg></div>
+                                    </svg></button>
                             </div>
                             <div class="release-title">Midnight Drift</div>
                             <div class="release-artist">Aria Vale</div>
-                            <div class="release-foot"><span class="release-tag">R&amp;B</span><span
-                                    class="release-price">$1.99</span></div>
+                            <div class="release-tags">
+                                <span class="tag">R&amp;B</span>
+                                <span class="tag">Pop</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$1.99</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                         <div class="release-card">
                             <div class="release-cover cv-art">
                                 <div class="badge">NEW</div>
-                                <div class="cover-tag">AUDIOBOOK</div>
-                                <div class="play-btn"><svg viewBox="0 0 24 24">
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+                                        <path d="M6.5 14v4a1.5 1.5 0 0 0 1.5 1.5h8A1.5 1.5 0 0 0 17.5 18v-4" />
+                                    </svg>
+                                    Audiobook
+                                </div>
+                                <button class="play-btn"><svg viewBox="0 0 24 24">
                                         <path d="M8 5v14l11-7z" />
-                                    </svg></div>
+                                    </svg></button>
                             </div>
                             <div class="release-title">Beyond the Noise</div>
                             <div class="release-artist">Elena Rivera</div>
-                            <div class="release-foot"><span class="release-tag">Audiobook</span><span
-                                    class="release-price">$14.99</span></div>
+                            <div class="release-tags">
+                                <span class="tag">Non-fiction</span>
+                                <span class="tag">Self-help</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$14.99</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                         <div class="release-card">
                             <div class="release-cover cv-merch">
                                 <div class="badge">NEW</div>
-                                <div class="cover-tag">MERCH</div>
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M8 4 4 7l2.5 3L8 9v11h8V9l1.5 1L20 7l-4-3-2 2h-4L8 4Z" />
+                                    </svg>
+                                    Merch
+                                </div>
                             </div>
                             <div class="release-title">PHOTIK Fragments Hoodie</div>
                             <div class="release-artist">PHOTIK</div>
-                            <div class="release-foot"><span class="release-tag">Merch</span><span
-                                    class="release-price">$58.00</span></div>
+                            <div class="release-tags">
+                                <span class="tag">Hoodie</span>
+                                <span class="tag">Limited</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$58.00</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                         <div class="release-card">
                             <div class="release-cover cv-bundles">
-                                <div class="cover-tag">BUNDLE</div>
+                                <div class="release-format-badge">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3.5" y="3.5" width="7" height="7" rx="1" />
+                                        <rect x="13.5" y="3.5" width="7" height="7" rx="1" />
+                                        <rect x="3.5" y="13.5" width="7" height="7" rx="1" />
+                                        <rect x="13.5" y="13.5" width="7" height="7" rx="1" />
+                                    </svg>
+                                    Bundle
+                                </div>
                             </div>
                             <div class="release-title">PHOTIK: Complete Discography</div>
                             <div class="release-artist">PHOTIK</div>
-                            <div class="release-foot"><span class="release-tag">Bundle</span><span
-                                    class="release-price">$13.99</span></div>
+                            <div class="release-tags">
+                                <span class="tag">Bundle</span>
+                                <span class="tag">Limited</span>
+                            </div>
+                            <div class="release-foot">
+                                <span class="release-price">$13.99</span>
+                                <button class="btn-cart">+ Add</button>
+                            </div>
                         </div>
 
                     </div>
@@ -2291,30 +2641,35 @@
                             <div class="name">Hip-Hop &amp; Rap</div>
                             <div class="sub">482 releases</div>
                         </div>
+                        <div class="coll-cta">Explore →</div>
                     </div>
                     <div class="coll-card cat-card cat-ebooks">
                         <div class="coll-meta">
                             <div class="name">R&amp;B &amp; Soul</div>
                             <div class="sub">310 releases</div>
                         </div>
+                        <div class="coll-cta">Explore →</div>
                     </div>
                     <div class="coll-card cat-card cat-audio">
                         <div class="coll-meta">
                             <div class="name">Electronic &amp; Ambient</div>
                             <div class="sub">245 releases</div>
                         </div>
+                        <div class="coll-cta">Explore →</div>
                     </div>
                     <div class="coll-card cat-card cat-art">
                         <div class="coll-meta">
                             <div class="name">Lo-Fi &amp; Chill</div>
                             <div class="sub">189 releases</div>
                         </div>
+                        <div class="coll-cta">Explore →</div>
                     </div>
                     <div class="coll-card cat-card cat-bundles">
                         <div class="coll-meta">
                             <div class="name">Indie &amp; Alternative</div>
                             <div class="sub">124 releases</div>
                         </div>
+                        <div class="coll-cta">Explore →</div>
                     </div>
                 </div>
             </section>
@@ -2339,7 +2694,10 @@
                             <div class="top-name">Lost in Transit</div>
                             <div class="top-sub">Novenstate · Album</div>
                         </div>
-                        <div class="top-price">$7.99</div>
+                        <div class="top-right">
+                            <span class="top-type">Album</span>
+                            <span class="top-price">$7.99</span>
+                        </div>
                     </div>
                     <div class="top-row">
                         <div class="top-rank">02</div>
@@ -2348,7 +2706,10 @@
                             <div class="top-name">Still Standing</div>
                             <div class="top-sub">Jalen Kade · Album</div>
                         </div>
-                        <div class="top-price">$8.99</div>
+                        <div class="top-right">
+                            <span class="top-type">Album</span>
+                            <span class="top-price">$8.99</span>
+                        </div>
                     </div>
                     <div class="top-row">
                         <div class="top-rank">03</div>
@@ -2357,7 +2718,10 @@
                             <div class="top-name">Mind Over Motion</div>
                             <div class="top-sub">Vincent Tam · eBook</div>
                         </div>
-                        <div class="top-price">$12.00</div>
+                        <div class="top-right">
+                            <span class="top-type">eBook</span>
+                            <span class="top-price">$12.00</span>
+                        </div>
                     </div>
                     <div class="top-row">
                         <div class="top-rank">04</div>
@@ -2366,7 +2730,10 @@
                             <div class="top-name">Digital Dreams</div>
                             <div class="top-sub">PHOTIK · EP</div>
                         </div>
-                        <div class="top-price">$5.99</div>
+                        <div class="top-right">
+                            <span class="top-type">EP</span>
+                            <span class="top-price">$5.99</span>
+                        </div>
                     </div>
                     <div class="top-row">
                         <div class="top-rank">05</div>
@@ -2375,12 +2742,15 @@
                             <div class="top-name">Quiet Hours</div>
                             <div class="top-sub">Vincent Tam · Audiobook</div>
                         </div>
-                        <div class="top-price">$13.99</div>
+                        <div class="top-right">
+                            <span class="top-type">Audiobook</span>
+                            <span class="top-price">$13.99</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ===================== FEATURED CREATORS ===================== -->
+            <!-- ===================== FEATURED CREATORS (Original Design) ===================== -->
             <section class="tint">
                 <div class="section-head">
                     <div>
@@ -2510,7 +2880,6 @@
             </svg>
         </div>
 
-        <!-- Desktop Right Controls -->
         <div class="player-right player-desktop-right">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -2532,7 +2901,6 @@
             <div class="vol-track"></div>
         </div>
 
-        <!-- Mobile More Button ("...") and Options Popup -->
         <div style="position: relative;">
             <button class="player-more-btn" id="playerMoreBtn" aria-label="More options">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -2601,6 +2969,7 @@
             }
         })();
 
+        // Sidebar
         (function () {
             var sidebar = document.getElementById('sidebar');
             var overlay = document.getElementById('sidebarOverlay');
@@ -2611,6 +2980,7 @@
                 sidebar.classList.add('open');
                 overlay.classList.add('show');
             }
+
             function closeMenu() {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('show');
@@ -2622,7 +2992,6 @@
                 el.addEventListener('click', closeMenu);
             });
 
-            // Player Popup Toggle
             var moreBtn = document.getElementById('playerMoreBtn');
             var popup = document.getElementById('playerPopup');
 
@@ -2640,6 +3009,57 @@
             }
         })();
 
+        // Carousel
+        (function () {
+            var slides = document.getElementById('heroSlides');
+            var dots = document.querySelectorAll('.carousel-dot');
+            var currentIndex = 0;
+            var totalSlides = 2;
+            var autoplayInterval;
+
+            function goToSlide(index) {
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentIndex = index;
+                slides.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach(function (dot, i) {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function startAutoplay() {
+                stopAutoplay();
+                autoplayInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoplay() {
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                    autoplayInterval = null;
+                }
+            }
+
+            dots.forEach(function (dot) {
+                dot.addEventListener('click', function () {
+                    var index = parseInt(this.getAttribute('data-index'));
+                    goToSlide(index);
+                    startAutoplay();
+                });
+            });
+
+            // Pause on hover
+            var carousel = document.querySelector('.hero-carousel');
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+
+            startAutoplay();
+        })();
+
+        // Rail Scroll
         function scrollRail(id, dir) {
             var el = document.getElementById(id);
             if (!el) return;
