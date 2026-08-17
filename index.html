@@ -27,6 +27,17 @@
             --accent-ink: #111315;
             --nav-ink: #ffffff;
 
+            /* Curated secondary palette — used sparingly for category/genre
+               identity so sections scan at a glance without breaking the
+               editorial tone. Every hue is desaturated to sit in the same
+               family as --accent. */
+            --hue-sage: #8a9a8a;
+            --hue-clay: #b98a6a;
+            --hue-slate: #6f88a0;
+            --hue-gold: #c2a45f;
+            --hue-rose: #a8788a;
+            --hue-moss: #7a9070;
+
             --serif: "Playfair Display", Georgia, serif;
             --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
             --mono: "JetBrains Mono", ui-monospace, monospace;
@@ -599,7 +610,7 @@
         }
 
         .hero-slide-original .hero-inner {
-            max-width: 620px;
+            max-width: 560px;
         }
 
         .hero-slide-original .hero p.desc {
@@ -608,6 +619,71 @@
 
         .hero-slide-original .hero-album-art {
             display: none;
+        }
+
+        /* Signature hero visual: a duotone editorial portrait in a thin
+           orbiting ring, in place of a flat gradient field. Reuses the
+           PHOTIK photography already used on the release cover, so the
+           hero and the catalog tell the same visual story. */
+        .hero-portrait {
+            position: absolute;
+            right: 64px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            aspect-ratio: 1/1;
+            z-index: 1;
+        }
+
+        .hero-portrait-ring {
+            position: absolute;
+            inset: -22px;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+        }
+
+        .hero-portrait-ring::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 16px 2px rgba(138, 154, 138, 0.6);
+        }
+
+        .hero-portrait-frame {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-portrait-img {
+            position: absolute;
+            inset: 0;
+            background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80");
+            background-size: cover;
+            background-position: center;
+            filter: contrast(1.05) brightness(0.95) saturate(1.05);
+        }
+
+        .hero-portrait-duotone {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(155deg, var(--accent) 0%, transparent 65%);
+            mix-blend-mode: soft-light;
+            opacity: 0.55;
+        }
+
+        .hero-portrait-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
         }
 
         .hero-slide-album .hero-inner {
@@ -657,6 +733,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--line);
+            border-top: 2px solid var(--cat-c1);
             border-radius: var(--radius);
             padding: 22px 18px;
             min-height: 130px;
@@ -681,17 +758,17 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at 85% 15%, var(--cat-c1), transparent 60%);
-            opacity: 0.12;
+            opacity: 0.16;
             mix-blend-mode: screen;
         }
 
         .cat-card:hover {
-            border-color: var(--accent);
+            border-color: var(--cat-c1);
             transform: translateY(-2px);
         }
 
         .cat-card:hover::before {
-            opacity: 0.12;
+            opacity: 0.14;
         }
 
         .cat-icon {
@@ -699,13 +776,14 @@
             z-index: 2;
             width: 32px;
             height: 32px;
-            border: 1px solid var(--line-strong);
+            border: 1px solid var(--cat-c1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(17, 19, 21, 0.6);
             backdrop-filter: blur(4px);
+            color: var(--cat-c1);
         }
 
         .cat-icon svg {
@@ -735,32 +813,32 @@
 
         .cat-music {
             --cat-grad: linear-gradient(145deg, #1c1f22, #2a2e32);
-            --cat-c1: #2a2e32;
+            --cat-c1: var(--hue-sage);
         }
 
         .cat-ebooks {
             --cat-grad: linear-gradient(145deg, #1c1f22, #2a2e32);
-            --cat-c1: #2a2e32;
+            --cat-c1: var(--hue-clay);
         }
 
         .cat-audio {
             --cat-grad: linear-gradient(145deg, #1a1d20, #282c30);
-            --cat-c1: #282c30;
+            --cat-c1: var(--hue-slate);
         }
 
         .cat-art {
             --cat-grad: linear-gradient(145deg, #1c1f22, #2a2e32);
-            --cat-c1: #2a2e32;
+            --cat-c1: var(--hue-rose);
         }
 
         .cat-merch {
             --cat-grad: linear-gradient(145deg, #1c1f22, #2a2e32);
-            --cat-c1: #2a2e32;
+            --cat-c1: var(--hue-gold);
         }
 
         .cat-bundles {
             --cat-grad: linear-gradient(145deg, #1a1d20, #282c30);
-            --cat-c1: #282c30;
+            --cat-c1: var(--hue-moss);
         }
 
         /* ============ RELEASE RAIL ============ */
@@ -1669,34 +1747,19 @@
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
         }
 
-        :root[data-theme="light"] .cat-music {
-            --cat-grad: linear-gradient(145deg, #e0e2e4, #c8ccd0);
-            --cat-c1: #c8ccd0;
-        }
-
-        :root[data-theme="light"] .cat-ebooks {
-            --cat-grad: linear-gradient(145deg, #e0e2e4, #c8ccd0);
-            --cat-c1: #c8ccd0;
-        }
-
-        :root[data-theme="light"] .cat-audio {
-            --cat-grad: linear-gradient(145deg, #dce0e2, #c4cace);
-            --cat-c1: #c4cace;
-        }
-
+        :root[data-theme="light"] .cat-music,
+        :root[data-theme="light"] .cat-ebooks,
         :root[data-theme="light"] .cat-art {
             --cat-grad: linear-gradient(145deg, #e0e2e4, #c8ccd0);
-            --cat-c1: #c8ccd0;
+        }
+
+        :root[data-theme="light"] .cat-audio,
+        :root[data-theme="light"] .cat-bundles {
+            --cat-grad: linear-gradient(145deg, #dce0e2, #c4cace);
         }
 
         :root[data-theme="light"] .cat-merch {
             --cat-grad: linear-gradient(145deg, #e0e2e4, #c8ccd0);
-            --cat-c1: #c8ccd0;
-        }
-
-        :root[data-theme="light"] .cat-bundles {
-            --cat-grad: linear-gradient(145deg, #dce0e2, #c4cace);
-            --cat-c1: #c4cace;
         }
 
         .theme-toggle {
@@ -1780,6 +1843,11 @@
             .hero-slide .hero-album-art {
                 width: 240px;
                 right: 36px;
+            }
+
+            .hero-portrait {
+                width: 260px;
+                right: 32px;
             }
         }
 
@@ -1887,6 +1955,15 @@
 
             .hero-slide-original .hero-album-art {
                 display: none !important;
+            }
+
+            .hero-portrait {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 220px;
+                margin: 48px auto 0;
             }
 
             footer {
@@ -2310,6 +2387,14 @@
                                     </svg></button>
                                 <div class="hero-note"><span class="dot">●</span>&nbsp; Fragments of Realities out now
                                 </div>
+                            </div>
+                        </div>
+                        <div class="hero-portrait">
+                            <div class="hero-portrait-ring"></div>
+                            <div class="hero-portrait-frame">
+                                <div class="hero-portrait-img"></div>
+                                <div class="hero-portrait-duotone"></div>
+                                <div class="hero-portrait-vignette"></div>
                             </div>
                         </div>
                     </div>
